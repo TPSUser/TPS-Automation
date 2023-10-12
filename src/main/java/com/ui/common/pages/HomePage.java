@@ -13,9 +13,19 @@ public class HomePage extends SafeActions implements Locators{
 		this.driver = driver;
 	}
 
-	public void allowCookies() {
+	public void allowCookies(String isCookieExists) {
+		System.out.println("Cookie value is :: "+isCookieExists);
+		if(isCookieExists=="true") {
 		zoomto();
 		safeClick(BTN_ALLOWCOOKIES,5);
+		}else {
+			System.out.println("@@@@@@@@@@@@@");
+		}
+//		try {
+//		safeClick(BTN_ALLOWCOOKIES,5);
+//		}catch(Exception e) {
+//			System.out.println("no cookies..");
+//		}
 	}
 	
 	public void navigateToLogin() {

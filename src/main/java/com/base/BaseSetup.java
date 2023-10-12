@@ -88,7 +88,7 @@ import com.ui.utilities.UtilityMethods;
 		    	initiateDriver(browserType);
 		    	System.out.println("initiated driver...");
 		 		driver.manage().window().maximize();
-				setPageLoadTimeOut(VERYLONGWAIT);	
+				setPageLoadTimeOut(SHORTWAIT);	
 	    	}
 	    	catch (Exception e)
 	    	{		    		
@@ -152,12 +152,14 @@ import com.ui.utilities.UtilityMethods;
 			switch(env) {
 			case "QA":
 				driver.get(envProps.getProperty("test_url"));
+				log.info("Launched QA");
 				break;
 			case "PROD":
 				driver.get(envProps.getProperty("prod_url"));
+				log.info("Launched Prod");
 				break;
 			default:
-				driver.get(env);		
+				driver.get(envProps.getProperty("test_url"));;		
 			}
 		}
 		

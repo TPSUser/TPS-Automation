@@ -2,7 +2,6 @@ package com.dataprovider;
 
 import java.io.FileInputStream;
 import java.util.Properties;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;

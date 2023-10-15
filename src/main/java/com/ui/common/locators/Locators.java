@@ -22,6 +22,10 @@ public interface Locators {
 	public static final By TOOLTIP = By.xpath("//div[text()='Your email address']/../span");
 	public static final By TXT_RETURNINGCUST = By.xpath("//section[@class='tab-switcher']//span[text()[normalize-space()='returning customer' or normalize-space()='Sign In']]");
 	public static final By MENU_CATEGORY_FIRSTITEM = By.xpath("//div[@class='product-grid__products-list']/e2-product-tile[1]//a[@class='product-list-item__details-wrapper']");
+	public static final By BTN_WRAP = By.xpath("//span[contains(text(),'Wrap me')]");
+	public static final By BTN_WRAP_GIFTWRAP = By.xpath("//span[text()[normalize-space()='Gift Wrap']]/../following-sibling::label");
+	public static final By BTN_SAVE_WRAP = By.xpath("//*[@class='step__submit-wrapper']/button");
+	public static final By TXT_ITSWRAPPED = By.xpath("//*[contains(@class,'add-gift-wrap__button--abrand')]");
 	
 	public static final By BTN_ADDTOCART = By.xpath("//div[contains(@class,'product-add-to-cart__placeholder')]//form//e2core-button//span");
 	public static final By BTN_MINICART = By.className("minicart-anchor");

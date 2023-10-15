@@ -139,7 +139,7 @@ import com.ui.utilities.UtilityMethods;
 					driver = ChromeBrowser.init();
 					break;
 				case "firefox":
-					//driver = FirefoxBrowser.init();
+					driver = FirefoxBrowser.init();
 					break;
 				default:
 					log.error("browser : "+browserType+" is invalid, Launching Firefox as browser of choice..");
@@ -159,7 +159,7 @@ import com.ui.utilities.UtilityMethods;
 				log.info("Launched Prod");
 				break;
 			default:
-				driver.get(envProps.getProperty("test_url"));;		
+				driver.get(env);;		
 			}
 		}
 		

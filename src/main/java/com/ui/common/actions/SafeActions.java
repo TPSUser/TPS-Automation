@@ -194,6 +194,29 @@ public class SafeActions extends Sync{
 		return ele;
 	}
 	
+	public String safeGetText(By locator,int... optionWaitTime) {
+		String text= null;
+		try
+		{
+			Duration time = intToDuration(SHORTWAIT);
+			waitUntilClickable(locator, optionWaitTime);
+			if(isElementPresent(locator,time))
+			{
+				WebElement element = driver.findElement(locator);
+				text =  element.getText();		
+			}
+			else
+			{
+				Assert.fail("Unable to click the element " + locator+UtilityMethods.getStackTrace());
+			}
+		}
+		catch(Exception e)
+		{	
+			Assert.fail("Element " + locator + " was not clickable" +UtilityMethods.getStackTrace());
+		}
+		return text;
+	}
+	
 	/**
 	 * 
 	 * @param xpathlocator

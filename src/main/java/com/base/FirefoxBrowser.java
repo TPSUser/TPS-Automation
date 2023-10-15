@@ -24,7 +24,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
  * This class defines all methods required to initialize ChromeDriver
  * So far only one method is written to initialize with default settings
  */
-public class ChromeBrowser 
+public class FirefoxBrowser 
 {
 	static ConfigManager sys = new ConfigManager();
 	private static Logger log = LogManager.getLogger("ChromeBrowser");
@@ -39,25 +39,10 @@ public class ChromeBrowser
 	 */
 	public static WebDriver init()
 	{		
-		ChromeOptions option = new ChromeOptions();
-		Map<String, Object> prefs = new HashMap<String, Object>();
-		Map<String,Integer> settings = new HashMap<String,Integer>();
-		Map<String,Object> profile = new HashMap<String,Object>();
+		//ChromeOptions option = new ChromeOptions();
+		WebDriverManager.firefoxdriver().setup();
 		
-		option.addArguments("--disable-blink-features=AutomationControlled");
-		
-		settings.put("notifications", 1);
-		profile.put("managed_default_content_settings", settings);
-		
-		prefs.put("profile", profile);
-		
-		prefs.put("credentials_enable_service", false);
-		prefs.put("profile.password_manager_enabled",false);
-	
-		option.setExperimentalOption("useAutomationExtension", false);
-		option.setExperimentalOption("excludeSwitches", new String[]{"enable-automation","--disable-local-storage","disable-popup-blocking"});
-		option.setExperimentalOption("prefs", prefs);
-		WebDriver driver = new ChromeDriver(option);
+		WebDriver driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		return driver;
 	}

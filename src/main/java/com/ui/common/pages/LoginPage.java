@@ -14,9 +14,9 @@ public class LoginPage extends SafeActions implements Locators{
 	WebDriver driver;
 	String url;
 	ConfigManager envProps;
-	
+
 	Logger log =LogManager.getLogger("LoginPage");
-	
+
 	public LoginPage(WebDriver driver) {
 		super(driver);
 		this.driver = driver;
@@ -28,21 +28,20 @@ public class LoginPage extends SafeActions implements Locators{
 	 * @param username
 	 * @param password
 	 ***************************************************************************************************/
-	public void loginToApp(String username,String password)  {
-		try {
-		mouseHover(BTN_LOGIN_ADDEMAIL, 2);
-		safeType(INPUT_LOGIN_EMAIL,username);
-		safeClick(BTN_LOGIN_ADDEMAIL);
-		safeType(INPUT_LOGIN_PWD, password);
-		safeClick(BTN_LOGIN, 5);
-		Assert.assertTrue(safeFindElement(TXT_PROFILENAME).isDisplayed());
-		log.info("Logged into App");
-		}catch (Exception e) {
+	public void loginToApp(String isCookieExists,String username,String password)  {
+		if(isCookieExists=="yes") {
+			safeType(INPUT_LOGIN_EMAIL,username);
+			safeClick(BTN_LOGIN_ADDEMAIL);;
+			safeType(INPUT_LOGIN_PWD, password);
+			safeClick(BTN_LOGIN, 5);
+			Assert.assertTrue(safeFindElement(TXT_PROFILENAME).isDisplayed());
+			log.info("Logged into App");
+		}else {
 			log.info("User already logged in..");
 		}
 	}
-	
-	
+
+
 	/***************************************************************************************************
 	 * This method will move mouse to menu category and selects the first sub-menu category from the dropdown list
 	 * @param menu
@@ -57,20 +56,31 @@ public class LoginPage extends SafeActions implements Locators{
 		waitForPageToLoad();
 		log.info("Category selected!");
 	}
-	
-	
+
+
 	/***************************************************************************************************
 	 * This method selects the First item from the listing page and add to cart
 	 * @throws Exception 
 	 ***************************************************************************************************/
-	public void selectFirstProductAndAddToCart(/* String product */) throws Exception {
+	public void selectFirstProductAndAddToCart(/* String product */String wrapYesNo) throws Exception {
 		safeClick(MENU_CATEGORY_FIRSTITEM,8);
+		if(wrapYesNo.equalsIgnoreCase("wrapyes")) {
+			safeClick(BTN_WRAP);
+			Thread.sleep(3000);
+			safeClick(BTN_WRAP_GIFTWRAP);
+			Thread.sleep(3000);
+			safeClick(BTN_SAVE_WRAP);
+			Thread.sleep(3000);
+			Assert.assertEquals(safeGetText(TXT_ITSWRAPPED).toUpperCase(), "IT'S WRAPPED");
+		}else {
+			log.info("Gift wrap not selected!");
+		}
 		safeClick(BTN_ADDTOCART,8);	
 		log.info("Item added to cart!");
 		waitForPageToLoad();
 	}
-	
-	
+
+
 	/***************************************************************************************************
 	 * This method secure checkout the product from minicart and continue to checkout
 	 * @throws Exception
@@ -83,8 +93,8 @@ public class LoginPage extends SafeActions implements Locators{
 		safeClick(BTN_CONTINUETOCHECKOUT);
 		log.info("Checked Out Cart items");
 	}
-	
-	
+
+
 	/***************************************************************************************************
 	 * This method selects the delivery type and process the payment
 	 * @param deliveryType
@@ -104,13 +114,12 @@ public class LoginPage extends SafeActions implements Locators{
 		setImplicitWait(MEDIUMWAIT);
 		if(payType.equalsIgnoreCase("credit card")) {
 			safeSwitchFrame("wp-cl-wp-iframe-iframe");
-			log.info("Switced to frame");
 			addDefaultCardDetails();
 			safeSwitcToMainWindow();
 		}
 	}
-	
-	
+
+
 	/***************************************************************************************************
 	 * This method add default card details
 	 * @throws Exception
